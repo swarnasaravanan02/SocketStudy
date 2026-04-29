@@ -53,15 +53,66 @@ Socket programming finds applications in various domains, including web developm
 4.	Networked Games: Online multiplayer games rely on socket programming to facilitate communication between game clients and servers.
 5.	RPC mechanisms: which allow processes to execute code on a remote server, often use socket programming for communication.
 ## SERVER:
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/cd7416a4-57e6-401a-a090-5c3a507303f1" />
-## CLIENT:
-<img width="1920" height="1200" alt="Screenshot (335)" src="https://github.com/user-attachments/assets/3514ed21-dc52-4b3c-af01-39774711bb01" />
 
-## OUTPUT:
-## SERVER:
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/860c9581-a119-411c-82f7-66ca2daed69b" />
+import socket
+
+# Create socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Bind socket to IP and port
+host = '127.0.0.1'
+port = 12345
+server_socket.bind((host, port))
+
+# Listen for connections
+server_socket.listen(1)
+print("Server is waiting for connection...")
+
+# Accept client connection
+conn, addr = server_socket.accept()
+print("Connected to:", addr)
+
+# Receive data from client
+data = conn.recv(1024).decode()
+print("Client says:", data)
+
+# Send response to client
+message = "Hello Client, message received!"
+conn.send(message.encode())
+
+# Close connection
+conn.close()
+server_socket.close()
 ## CLIENT:
-<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/807df582-3d01-4ee6-8243-cf088dfe45e4" />
+import socket
+
+# Create socket
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connect to server
+host = '127.0.0.1'
+port = 12345
+client_socket.connect((host, port))
+
+# Send message to server
+message = "Hello Server!"
+client_socket.send(message.encode())
+
+# Receive response from server
+data = client_socket.recv(1024).decode()
+print("Server says:", data)
+
+# Close socket
+client_socket.close()
+## OUTPUT:
+
+## SERVER:
+<img width="1920" height="1200" alt="Screenshot (337)" src="https://github.com/user-attachments/assets/b3d98017-2da7-4aa8-9bd2-3953ead217d6" />
+
+## CLIENT:
+
+<img width="1920" height="1200" alt="Screenshot (338)" src="https://github.com/user-attachments/assets/e3800817-c53d-41e8-92e9-788222f5766c" />
+
 
 
 ## Result:
